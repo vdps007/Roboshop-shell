@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ##### Change these values ###
-ZONE_ID="xxxxxxxxxxxxxxxx"
-DOMAIN="xxxxxxxxxxxxxxxxx"
+ZONE_ID="Z0951825YO9TU21VYS1Z"
+DOMAIN="itsmevdps.online"
 SG_NAME="all-ports"
 #############################
 
