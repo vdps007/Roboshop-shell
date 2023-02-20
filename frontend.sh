@@ -7,8 +7,8 @@ print_head() {
 }
 
 status_check(){
-    if [$1 -eq 0]; then
-       echo SUCCESS
+    if [ $1 -eq 0 ]; then
+        echo SUCCESS
     else
         echo FAILURE
         echo "Read the log file ${log_file} for more information about error"
