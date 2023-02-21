@@ -55,7 +55,7 @@ schema_setup(){
         print_head "Loading mongodb Schema"
         mongo --host mongodb.itsmevdps.online </app/schema/${component}.js &>>${log_file}
         status_check $?
-    elif [ "${schema_type}" == "mysql"]; then
+    elif [ "${schema_type}" == "mysql" ]; then
         print_head "Installing mysql"
         yum install mysql -y &>>${log_file}
         status_check $?
