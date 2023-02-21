@@ -26,6 +26,9 @@ print_head "starting mysql"
 systemctl start mysqld &>>${log_file}
 status_check $?
 
-print_head "copy mysql repo file"
-mysql -uroot -p${mysql_pass} &>>${log_file}
+print_head "setting up root user"
+echo show databases | mysql -uroot -p${mysql_pass} &>>${log_file}
+if [ $? -ne 0 ]; then
+    mysql_secure_installation --set-root-pass ${mysql_pass}  &>>${log_file}
+fi
 status_check $?
