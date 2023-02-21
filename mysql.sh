@@ -1,6 +1,6 @@
 source common.sh
 mysql_pass=$1
-if[ -z "mysql_pass" ]; then
+if [ -z "mysql_pass" ]; then
     echo -e "\e[31mMissing MySQL Root Password argument\e[0m"
 fi
 
