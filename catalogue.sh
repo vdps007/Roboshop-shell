@@ -35,7 +35,6 @@ unzip /tmp/${component}.zip &>>${log_file}
 status_check $?
 
 print_head "Installing packages"
-cd /app &>>${log_file}
 npm install &>>${log_file}
 status_check $?
 
