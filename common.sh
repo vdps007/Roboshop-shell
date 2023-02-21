@@ -42,17 +42,29 @@ app_prereq_setup(){
 }
 
 schema_setup(){
-    print_head "copying repos"
-    cp ${code_dir}/Configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
-    status_check $?
+    if [ "${schema_type}" == "mongodb" ]; then
 
-    print_head "install mongo-shell"
-    yum install mongodb-org-shell -y &>>${log_file}
-    status_check $?
+        print_head "copying repos"
+        cp ${code_dir}/Configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
+        status_check $?
 
-    print_head "Loading mongodb Schema"
-    mongo --host mongodb.itsmevdps.online </app/schema/${component}.js &>>${log_file}
-    status_check $?
+        print_head "install mongo-shell"
+        yum install mongodb-org-shell -y &>>${log_file}
+        status_check $?
+
+        print_head "Loading mongodb Schema"
+        mongo --host mongodb.itsmevdps.online </app/schema/${component}.js &>>${log_file}
+        status_check $?
+    elif [ "${schema_type}" == "mysql"]; then
+        print_head "Installing mysql"
+        yum install mysql -y &>>${log_file}
+        status_check $?
+
+        print_head "loading mysql schema"
+        mysql -h mysql.itsmevdps.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>>${log_file}
+        status_check $?
+
+    fi
 }
 
 systemd_setup(){
@@ -91,5 +103,22 @@ nodejs() {
     schema_setup
 
     systemd_setup
-    
+
+}
+
+java(){
+    print_head "Installing Maven"
+    yum install maven -y &>>${log_file}
+    status_check $?
+
+    app_prereq_setup
+
+    print_head "Download packages"
+    mvn clean package &>>${log_file}
+    mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
+    status_check $?
+
+    schema_setup
+
+    systemd_setup
 }
