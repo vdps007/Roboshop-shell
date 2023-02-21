@@ -18,7 +18,7 @@ status_check(){
 
 nodejs() {
     print_head "Download prereq"
-    curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
+    sudo curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
     status_check $?
 
     print_head "Installing nodejs"
