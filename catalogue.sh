@@ -55,7 +55,7 @@ systemctl start ${component} &>>${log_file}
 status_check $?
 
 print_head "copying repos"
-cp ${code_dir}/configs/mongodb.repo /etc/systemd/system/mongodb.repo &>>${log_file}
+cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
 status_check $?
 
 print_head "install mongo-shell"
