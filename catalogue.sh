@@ -20,9 +20,9 @@ mkdir /app &>>${log_file}
 status_check $?
 
 print_head "Download and Unzip pakages"
-curl -L -o /tmp/$(component).zip https://roboshop-artifacts.s3.amazonaws.com/$(component).zip &>>${log_file}
+curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
 cd /app &>>${log_file}
-unzip /tmp/$(component).zip &>>${log_file}
+unzip /tmp/${component}.zip &>>${log_file}
 status_check $?
 
 print_head "Installing packages"
@@ -31,7 +31,7 @@ npm install &>>${log_file}
 status_check $?
 
 print_head "Copying files"
-cp ${code_dir}/configs/$(component).service /etc/systemd/system/$(component).service &>>${log_file}
+cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
 status_check $?
 
 print_head "Restarting Deamon"
@@ -39,11 +39,11 @@ systemctl daemon-reload &>>${log_file}
 status_check $?
 
 print_head "Enabeling Catalogue"
-systemctl enable $(component) &>>${log_file}
+systemctl enable ${component} &>>${log_file}
 status_check $?
 
-print_head "starting $(component)"
-systemctl start $(component) &>>${log_file}
+print_head "starting ${component}"
+systemctl start ${component} &>>${log_file}
 status_check $?
 
 print_head "copying repos"
@@ -55,5 +55,5 @@ yum install mongodb-org-shell -y &>>${log_file}
 status_check $?
 
 print_head "accessing mongodb"
-mongo --host mongodb.itsmevdps.online </app/schema/$(component).js &>>${log_file}
+mongo --host mongodb.itsmevdps.online </app/schema/${component}.js &>>${log_file}
 status_check $?
