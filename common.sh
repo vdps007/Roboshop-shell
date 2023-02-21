@@ -76,7 +76,7 @@ systemd_setup(){
     systemctl daemon-reload &>>${log_file}
     status_check $?
 
-    print_head "Enabeling Catalogue"
+    print_head "Enabeling ${component}"
     systemctl enable ${component} &>>${log_file}
     status_check $?
 
