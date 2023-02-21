@@ -1,12 +1,13 @@
 source common.sh
 mysql_pass=$1
-if [ -z "mysql_pass" ]; then
+if [ -z "${mysql_pass}" ]; then
     echo -e "\e[31mMissing MySQL Root Password argument\e[0m"
+    exit 1
 fi
 
 
 print_head "disable existing mysql"
-dnf module disable mysql -y 
+dnf module disable mysql -y &>>${log_file}
 status_check $?
 
 print_head "ccopying repos"
