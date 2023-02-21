@@ -39,7 +39,7 @@ npm install &>>${log_file}
 status_check $?
 
 print_head "Copying files"
-cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+cp ${code_dir}/Configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
 status_check $?
 
 print_head "Restarting Deamon"
@@ -55,7 +55,7 @@ systemctl start ${component} &>>${log_file}
 status_check $?
 
 print_head "copying repos"
-cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
+cp ${code_dir}/Configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>${log_file}
 status_check $?
 
 print_head "install mongo-shell"
