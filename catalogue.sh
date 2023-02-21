@@ -19,12 +19,18 @@ fi
 status_check $?
 
 print_head "Creating a Dir"
-mkdir /app &>>${log_file}
+if [ ! -d /app ]; then
+    mkdir /app &>>${log_file}
+fi
+status_check $?
+
+print_head "Delete Old Content"
+rm -rf /app/* &>>${log_file}
 status_check $?
 
 print_head "Download and Unzip pakages"
 curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
-cd /app &>>${log_file}
+cd /app
 unzip /tmp/${component}.zip &>>${log_file}
 status_check $?
 
